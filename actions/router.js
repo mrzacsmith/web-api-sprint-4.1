@@ -49,7 +49,7 @@ router.put("/:id", async (req, res) => {
         changes.description ||
         changes.notes ||
         changes.completed ||
-        action.project_id
+        changes.project_id
     ) {
         try {
             const updated = await Actions.update(req.params.id, changes);
