@@ -25,10 +25,10 @@ Follow these steps to set up and work on your project:
 
 Follow these steps for completing your project.
 
-- [ ] Submit a Pull-Request to merge `firstName-lastName` Branch into master on **your fork, don't make Pull Requests against Lambda's repository**.
+- [ ] Submit a Pull-Request to merge `firstName-lastName` Branch into `main` on **your fork, don't make Pull Requests against Lambda's repository**.
 - [ ] Please don't merge your own pull request.
 - [ ] Add your _Team Lead_ as a Reviewer on the Pull-request
-- [ ] Your _Team Lead_ will count the challenge as done by merging the branch into _master_.
+- [ ] Your _Team Lead_ will count the challenge as done by merging the branch into `main`.
 
 ## Commits
 
@@ -62,7 +62,7 @@ Please read the following sections before implementing the Minimum Viable Produc
 
 ### Database Schemas
 
-The description of the structure and extra information about each _resource_ stored in the included database (`./data/lambda.db3`) is listed below.
+The description of the structure and extra information about each _resource_ stored in the included database (`./database/lambda.db3`) is listed below.
 
 #### Projects
 
@@ -85,7 +85,7 @@ The description of the structure and extra information about each _resource_ sto
 
 ### Database Persistence Helpers
 
-The `/data/helpers` folder includes files you can use to manage the persistence of _project_ and _action_ data. These files are `projectModel.js` and `actionModel.js`. Both files publish the following api, which you can use to store, modify and retrieve each resource:
+The `/database/helpers` folder includes files you can use to manage the persistence of _project_ and _action_ data. These files are `projectModel.js` and `actionModel.js`. Both files publish the following api, which you can use to store, modify and retrieve each resource:
 
 **All these helper methods return a promise. Remember to use .then().catch() or async/await.**
 
