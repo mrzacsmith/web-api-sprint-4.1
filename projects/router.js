@@ -102,7 +102,7 @@ router.delete('/:id', (req, res) => {
                 });
             }
         })
-        .then(error => {
+        .catch(error => {
             res.status(500).json({
                 message: 'We ran into an error removing the project',
             });
