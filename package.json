@@ -13,15 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/node-api-challenge.git"
   },
-  "keywords": [
-    "api",
-    "node"
-  ],
   "author": "Lambda School",
-  "bugs": {
-    "url": "https://github.com/LambdaSchool/node-api-challenge/issues"
-  },
-  "homepage": "https://github.com/LambdaSchool/node-api-challenge#readme",
   "dependencies": {
     "express": "^4.17.1",
     "helmet": "^4.2.0",
