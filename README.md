@@ -1,68 +1,22 @@
-# Sprint Challenge: Express and Node.js - Projects & Actions
+# Sprint Challenge Instructions
 
-## Description
+**Read these instructions carefully. Understand exactly what is expected _before_ starting this Sprint Challenge.**
 
-In this challenge, you design and create a web API to manage the following resources: `Projects` and `Actions`.
+This challenge allows you to practice the concepts and techniques learned over the past sprint and apply them in a concrete project. This sprint explored **how to build web services based on the REST (REpresentational State Transfer) architectural style**. During this sprint, you studied **Node.js and Express, server side routing, how to write Express middleware and how to deploy an API to Heroku**. In your challenge this week, you will demonstrate your mastery of these skills by **designing and creating a web API to manage the following resources: `Projects` and `Actions`**.
 
-## Instructions
+This is an individual assessment. All work must be your own. Your challenge score is a measure of your ability to work independently using the material covered through this sprint. You need to demonstrate proficiency in the concepts and objectives introduced and practiced in preceding days.
 
-**Read these instructions carefully**. Understand exactly what is expected **_before_** starting to code.
+You are not allowed to collaborate during the sprint challenge. However, you are encouraged to follow the twenty-minute rule and seek support from your TL if you need direction.
 
-This is an individual assessment, please work on it alone. It is an opportunity to demonstrate proficiency of the concepts and objectives introduced and practiced in preceding days.
+_You have **three hours** to complete this challenge. Plan your time accordingly._
 
-If the instructions are not clear, please seek support from your TL and Instructor on Slack.
+## Introduction
 
-The Minimum Viable Product must be completed in three hours.
-
-Follow these steps to set up and work on your project:
-
-- [ ] Create a forked copy of this project.
-- [ ] Add your _Team Lead_ as collaborator on Github.
-- [ ] Clone your forked version of the Repository.
-- [ ] Create a new Branch on the clone: git checkout -b `firstName-lastName`.
-- [ ] Implement the project on this Branch, committing changes regularly.
-- [ ] Push commits: git push origin `firstName-lastName`.
-
-Follow these steps for completing your project.
-
-- [ ] Submit a Pull-Request to merge `firstName-lastName` Branch into `main` on **your fork, don't make Pull Requests against Lambda's repository**.
-- [ ] Please don't merge your own pull request.
-- [ ] Add your _Team Lead_ as a Reviewer on the Pull-request
-- [ ] Your _Team Lead_ will count the challenge as done by merging the branch into `main`.
-
-## Commits
-
-Commit your code regularly and use descriptive messages. This helps both you (in case you ever need to return to old code) and your Team Lead.
-
-## Self-Study/Essay Questions
-
-Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your Team Lead.
-
-- [ ] Mention two parts of Express that you learned about this week.
-
-- [ ] Describe Middleware?
-
-- [ ] Describe a Resource?
-
-- [ ] What can the API return to help clients know if a request was successful?
-
-- [ ] How can we partition our application into sub-applications?
-
-## Minimum Viable Product
-
-- [ ] Configure an _npm script_ named _"server"_ that will execute your code using _nodemon_. Make _nodemon_ be a development time dependency only, it shouldn't be deployed to production.
-- [ ] Configure an _npm script_ named _"start"_ that will execute your code using _node_.
-
-Design and build the necessary endpoints to:
-
-- [ ] Perform CRUD operations on _projects_ and _actions_. When adding an action, make sure the `project_id` provided belongs to an existing `project`. If you try to add an action with an `id` of 3 and there is no project with that `id` the database will return an error.
-- [ ] Retrieve the list of actions for a project.
-
-Please read the following sections before implementing the Minimum Viable Product, they describe how the database is structured and the files and methods available for interacting with the data.
+In meeting the minimum viable product (MVP) specifications listed below, your project should provide an API that has Create, Read, Update and Delete (CRUD) functionality for both `projects` and `actions`.
 
 ### Database Schemas
 
-The description of the structure and extra information about each _resource_ stored in the included database (`./database/lambda.db3`) is listed below.
+The description of the structure and extra information about each _resource_ stored in the included database (`./data/lambda.db3`) is listed below.
 
 #### Projects
 
@@ -85,7 +39,7 @@ The description of the structure and extra information about each _resource_ sto
 
 ### Database Persistence Helpers
 
-The `/database/helpers` folder includes files you can use to manage the persistence of _project_ and _action_ data. These files are `projectModel.js` and `actionModel.js`. Both files publish the following api, which you can use to store, modify and retrieve each resource:
+The `/data/helpers` folder includes files you can use to manage the persistence of _project_ and _action_ data. These files are `projectModel.js` and `actionModel.js`. Both files publish the following api, which you can use to store, modify and retrieve each resource:
 
 **All these helper methods return a promise. Remember to use .then().catch() or async/await.**
 
@@ -98,9 +52,77 @@ The `projectModel.js` helper includes an extra method called `getProjectActions(
 
 We have provided test data for all the resources.
 
-## Stretch Goal
+### Commits
 
-- Use `create-react-app` to create an application in a separate folder (outside the API project folder). Name it anything you want.
-- From the React application show a list of all _projects_ using the API you built.
-- Add functionality to show the details of a project, including its actions, when clicking a project name in the list. Use React Router to navigate to a separate route to show the project details.
-- Add styling!
+Commit your code regularly and meaningfully. This helps both you (in case you ever need to return to old code for any number of reasons) and your team lead as the evaluate your solution.
+
+## Interview Questions
+
+Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
+
+1. The core features of Node.js and Express and why they are useful.
+1. Understand and explain the use of Middleware?
+1. The basic principles of the REST architectural style.
+1. Understand and explain the use of Express Routers.
+1. Describe tooling used to manually test the correctness of an API.
+
+## Instructions
+
+### Task 1: Project Set Up
+
+- [ ] Create a forked copy of this project.
+- [ ] Add your team lead as collaborator on Github
+- [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
+- [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
+- [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly.
+- [ ] Push commits: git push origin `<firstName-lastName>`.
+
+### Task 2: Project Requirements
+
+Your finished project must include all of the following requirements:
+
+#### NPM Scripts
+
+- [ ] An _npm script_ named _"start"_ that uses `node` to run the API server
+- [ ] An _npm script_ named _"server"_ that uses `nodemon`to run the API server
+- [ ] Use _nodemon_ as a development time dependency only that is not deployed to production
+
+#### Build an API
+
+- [ ] Inside `api/actionsRouter.js` build endpoints for performing CRUD operations on _actions_:
+  - `[GET]    /api/actions`
+  - `[GET]    /api/actions/:id`
+  - `[POST]   /api/actions`
+  - `[PUT]    /api/actions`
+  - `[DELETE] /api/actions`
+
+- [ ] Inside `api/projectsRouter.js` build endpoints for performing CRUD operations on _projects_:
+  - `[GET]    /api/projects`
+  - `[GET]    /api/projects/:id`
+  - `[POST]   /api/projects`
+  - `[PUT]    /api/projects`
+  - `[DELETE] /api/projects`
+
+- [ ] Inside `api/projectsRouter.js` add an endpoint for retrieving the list of actions for a project:
+  - `[GET] /api/projects/:id/actions`
+
+- [ ] When adding an action, make sure the `project_id` provided belongs to an existing `project`.
+- [ ] If you try to add an action with an `id` of 3 and there is no project with that `id` the database will return an error.
+- [ ] Use an HTTP client like `HTTPie`, `postman` or `insomnia` to test the API's endpoints.
+- [ ] Use Express Routers to organize your endpoints.
+- [ ] Your `server.js` file lives inside the `api` folder.
+- [ ] Your `index.js` file lives at the root of the project.
+
+### Task 3: Stretch Goals
+
+After finishing your required elements, you can push your work further. These goals may or may not be things you have learned in this module but they build on the material you just studied. Time allowing, stretch your limits and see if you can deliver on the following optional goals:
+
+- [ ] Deploy the API to Heroku.
+- [ ] Configure the API to support environment variables.
+- [ ] Use middleware for validation of incoming data.
+
+## Submission format
+
+Follow these steps for completing your project.
+
+- [ ] Submit a Pull-Request to merge `<firstName-lastName>` Branch into master (student's Repo).
