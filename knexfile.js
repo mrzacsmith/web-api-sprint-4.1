@@ -1,27 +1,27 @@
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: "sqlite3",
     useNullAsDefault: true,
     connection: {
-      filename: './database/gtd.db3',
+      filename: "./data/lambda.db3",
     },
     pool: {
       afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
+        conn.run("PRAGMA foreign_keys = ON", done);
       },
     },
     migrations: {
-      directory: './database/migrations',
+      directory: "./data/migrations",
     },
     seeds: {
-      directory: './database/seeds',
+      directory: "./data/seeds",
     },
   },
   testing: {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: './database/testgtd.db3',
+      filename: './data/test.db3',
     },
     pool: {
       afterCreate: (conn, done) => {
@@ -29,28 +29,28 @@ module.exports = {
       },
     },
     migrations: {
-      directory: './database/migrations',
+      directory: './data/migrations',
     },
     seeds: {
-      directory: './database/seeds',
+      directory: './data/seeds',
     },
   },
   production: {
-    client: 'sqlite3',
+    client: "sqlite3",
     useNullAsDefault: true,
     connection: {
-      filename: './database/gtd.db3',
+      filename: "./data/lambda.db3",
     },
     pool: {
       afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
+        conn.run("PRAGMA foreign_keys = ON", done);
       },
     },
     migrations: {
-      directory: './database/migrations',
+      directory: "./data/migrations",
     },
     seeds: {
-      directory: './database/seeds',
+      directory: "./data/seeds",
     },
   },
 };

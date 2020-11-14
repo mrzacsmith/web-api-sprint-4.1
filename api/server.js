@@ -1,14 +1,16 @@
 const express = require("express");
 const helmet = require("helmet");
 
-const apiRouter = require("./router.js");
+const projectsRouter = require("./projectsRouter.js");
+const actionsRouter = require("./actionsRouter.js");
 
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
 
-server.use("/api", apiRouter);
+server.use("/api/projects", projectsRouter);
+server.use("/api/actions", actionsRouter);
 
 // sanity check route
 server.get("/", (req, res) => {
