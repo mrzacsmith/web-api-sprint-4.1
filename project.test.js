@@ -36,8 +36,8 @@ it('sanity check', () => {
   expect(true).not.toBe(false)
 })
 
-describe('server', () => {
-  describe('actions endpoints', () => {
+describe('server.js', () => {
+  describe('-------------------- actions endpoints', () => {
     describe('[GET] /api/actions', () => {
       it('sends back all actions that exist', async () => {
         const res = await request(server).get('/api/actions')
@@ -125,7 +125,7 @@ describe('server', () => {
       })
     })
   })
-  describe('projects endpoints', () => {
+  describe('-------------------- projects endpoints', () => {
     describe('[GET] /api/projects', () => {
       it('sends back all projects that exist', async () => {
         const res = await request(server).get('/api/projects')
@@ -139,15 +139,19 @@ describe('server', () => {
         expect(res.body).toHaveLength(0)
       })
     })
-    describe('[GET] by project id', () => {
-      it('works', async () => {
+    describe('[GET] /api/projects/:id', () => {
+      it('sends back the project with given id', async () => {
         const res1 = await request(server).get('/api/projects/1')
         const res2 = await request(server).get('/api/projects/2')
         expect(res1.body).toMatchObject(projectA)
         expect(res2.body).toMatchObject(projectB)
       })
+      it('responds with a 404 if no project with given id', async () => {
+        const res = await request(server).get('/api/projects/11')
+        expect(res.status).toBe(404)
+      })
     })
-    describe('[POST]', () => {
+    describe('[POST] /api/projects', () => {
       it('responds with the newly created project', async () => {
         const projectNew = { name: 'e', description: 'f', completed: true }
         const res = await request(server).post('/api/projects').send(projectNew)
@@ -159,8 +163,13 @@ describe('server', () => {
         const project = await Project.get(3)
         expect(project).toMatchObject(projectNew)
       })
+      it('responds with a 400 if the request body is missing required fields', async () => {
+        const projectNew = { name: 'e' }
+        const res = await request(server).post('/api/projects').send(projectNew)
+        expect(res.status).toBe(400)
+      })
     })
-    describe('[PUT]', () => {
+    describe('[PUT] /api/projects/:id', () => {
       it('responds with the updated project', async () => {
         const changes = { ...projectA, completed: true }
         const res = await request(server).put('/api/projects/1').send(changes)
@@ -172,15 +181,23 @@ describe('server', () => {
         const project = await Project.get(1)
         expect(project.completed).toBe(true)
       })
+      it('responds with a 400 if the request body is missing all fields', async () => {
+        const res = await request(server).put('/api/projects/1').send({})
+        expect(res.status).toBe(400)
+      })
     })
-    describe('[DELETE]', () => {
-      it('works', async () => {
+    describe('[DELETE] /api/projects/:id', () => {
+      it('deletes the action with the given id', async () => {
         await request(server).delete('/api/projects/1')
         let res = await Project.get()
         expect(res).toMatchObject([projectB])
         await request(server).delete('/api/projects/2')
         res = await Project.get()
         expect(res).toMatchObject([])
+      })
+      it('responds with a 404 if no project with given id', async () => {
+        const res = await request(server).delete('/api/projects/11')
+        expect(res.status).toBe(404)
       })
     })
   })
