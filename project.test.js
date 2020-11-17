@@ -38,31 +38,42 @@ it('sanity check', () => {
 
 describe('server', () => {
   describe('actions endpoints', () => {
-    describe('[GET] all', () => {
-      it('works', async () => {
+    describe('[GET] /api/actions', () => {
+      it('sends back all actions that exist', async () => {
         const res = await request(server).get('/api/actions')
         expect(res.body).toHaveLength(2)
         expect(res.body[0]).toMatchObject(actionA)
         expect(res.body[1]).toMatchObject(actionB)
       })
+      it('sends back empty array if no actions', async () => {
+        await db('actions').truncate()
+        const res = await request(server).get('/api/actions')
+        expect(res.body).toHaveLength(0)
+      })
     })
-    describe('[GET] by action id', async () => {
-      it('works', async () => {
+    describe('[GET] /api/actions/:id', async () => {
+      it('sends back the action with given id', async () => {
         const res1 = await request(server).get('/api/actions/1')
         const res2 = await request(server).get('/api/actions/2')
         expect(res1.body).toMatchObject(actionA)
         expect(res2.body).toMatchObject(actionB)
       })
-    })
-    describe('[GET] by project id', () => {
-      it('works', async () => {
-        const res1 = await request(server).get('/api/projects/1/actions')
-        const res2 = await request(server).get('/api/projects/2/actions')
-        expect(res1.body).toMatchObject(actions)
-        expect(res2.body).toMatchObject([])
+      it('responds with a 404 if no action with given id', async () => {
+        const res = await request(server).get('/api/actions/11')
+        expect(res.status).toBe(404)
       })
     })
-    describe('[POST]', () => {
+    describe('[GET] /api/projects/:id/actions', () => {
+      it('sends back the actions in project with given id', async () => {
+        const res = await request(server).get('/api/projects/1/actions')
+        expect(res.body).toMatchObject(actions)
+      })
+      it('sends back empty array if no actions in project with given id', async () => {
+        const res = await request(server).get('/api/projects/2/actions')
+        expect(res.body).toMatchObject([])
+      })
+    })
+    describe('[POST] /api/actions', () => {
       it('responds with the newly created action', async () => {
         const actionNew = { project_id: 2, description: 'm', notes: 'n', completed: false }
         const res = await request(server).post('/api/actions').send(actionNew)
@@ -74,8 +85,13 @@ describe('server', () => {
         const action = await Action.get(3)
         expect(action).toMatchObject(actionNew)
       })
+      it('responds with a 400 if the request body is missing required fields', async () => {
+        const actionNew = { project_id: 2, description: 'm' }
+        const res = await request(server).post('/api/actions').send(actionNew)
+        expect(res.status).toBe(400)
+      })
     })
-    describe('[PUT]', () => {
+    describe('[PUT] /api/actions/:id', () => {
       it('responds with the updated action', async () => {
         const action = await Action.get(1)
         const changes = { ...action, completed: true }
@@ -89,9 +105,13 @@ describe('server', () => {
         action = await Action.get(1)
         expect(action.completed).toBe(true)
       })
+      it('responds with a 400 if the request body is missing all fields', async () => {
+        const res = await request(server).put('/api/actions/1').send({})
+        expect(res.status).toBe(400)
+      })
     })
-    describe('[DELETE]', () => {
-      it('works', async () => {
+    describe('[DELETE] /api/actions/:id', () => {
+      it('deletes the action with the given id', async () => {
         await request(server).delete('/api/actions/1')
         let actions = await Action.get()
         expect(actions).toMatchObject([actionB])
@@ -99,15 +119,24 @@ describe('server', () => {
         actions = await Action.get()
         expect(actions).toMatchObject([])
       })
+      it('responds with a 404 if no action with given id', async () => {
+        const res = await request(server).get('/api/actions/11')
+        expect(res.status).toBe(404)
+      })
     })
   })
   describe('projects endpoints', () => {
-    describe('[GET] all', () => {
-      it('works', async () => {
+    describe('[GET] /api/projects', () => {
+      it('sends back all projects that exist', async () => {
         const res = await request(server).get('/api/projects')
         expect(res.body).toHaveLength(2)
         expect(res.body[0]).toMatchObject(projectA)
         expect(res.body[1]).toMatchObject(projectB)
+      })
+      it('sends back empty array if no projects', async () => {
+        await db('projects').truncate()
+        const res = await request(server).get('/api/projects')
+        expect(res.body).toHaveLength(0)
       })
     })
     describe('[GET] by project id', () => {
