@@ -31,6 +31,10 @@ beforeEach(async () => {
   await Action.insert(actionA)
   await Action.insert(actionB)
 })
+afterAll(async(done) => {
+  await db.destroy()
+  done()
+})
 
 it('sanity check', () => {
   expect(true).not.toBe(false)
