@@ -89,5 +89,6 @@ typings/
 # DynamoDB Local files
 .dynamodb/
 
-# test db
+# databases
 test.db3
+lambda.db3
