@@ -1,10 +1,9 @@
 const router = require('express').Router();
-
-const Actions = require('../data/helpers/actionModel.js');
+const Action = require('./actions-model');
 
 router.get('/', async (req, res) => {
   try {
-    const actions = await Actions.get();
+    const actions = await Action.get();
     res.status(200).json(actions);
   } catch (error) {
     res.status(500).json({ message: 'Error getting the list of actions' });
@@ -13,7 +12,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const action = await Actions.get(req.params.id);
+    const action = await Action.get(req.params.id);
     if (action) {
       res.status(200).json(action);
     } else {
@@ -29,7 +28,7 @@ router.post('/', async (req, res) => {
 
   if (action.description && action.project_id && action.notes) {
     try {
-      const inserted = await Actions.insert(action);
+      const inserted = await Action.insert(action);
       res.status(201).json(inserted);
     } catch (error) {
       res.status(500).json({ message: 'Error creating the action' });
@@ -51,7 +50,7 @@ router.put('/:id', async (req, res) => {
     changes.project_id
   ) {
     try {
-      const updated = await Actions.update(req.params.id, changes);
+      const updated = await Action.update(req.params.id, changes);
       if (updated) {
         res.status(200).json(updated);
       } else {
@@ -74,7 +73,7 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const count = await Actions.remove(req.params.id);
+    const count = await Action.remove(req.params.id);
     if (count > 0) {
       res.status(204).end();
     } else {

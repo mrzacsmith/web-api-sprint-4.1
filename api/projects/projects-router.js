@@ -1,6 +1,5 @@
 const router = require('express').Router();
-
-const Projects = require('../data/helpers/projectModel.js');
+const Projects = require('./projects-model');
 
 router.get('/', (req, res) => {
   Projects.get()
