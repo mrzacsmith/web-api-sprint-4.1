@@ -77,7 +77,7 @@ Be prepared to demonstrate your understanding of this week's concepts by answeri
 - [ ] Implement MVP on your newly created `<firstName-lastName>` branch.
 - [ ] Commit & push your code regularly and meaningfully.
 
-### Task 2: Project Requirements
+### Task 2: Project Requirements (MVP)
 
 Your finished project must include all of the following requirements:
 
