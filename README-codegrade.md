@@ -7,7 +7,6 @@
 These files must be re-uploaded to Codegrade whenever we make changes to them:
 
 - `project.test.js`
-- `package.json`
 - `jest.config.js`
 
 ### Global setup script to run
