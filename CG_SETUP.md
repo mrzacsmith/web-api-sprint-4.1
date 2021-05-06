@@ -16,7 +16,7 @@ This is the solution repo for `https://github.com/LambdaSchool/web-sprint-challe
 
 These are the files that Codegrade needs:
 
-1. `project.test.js`
+1. `codegrade_mvp.test.js`
 2. `jest.config.js`
 
 If you make changes to the project or the tests, please go through this checklist:
@@ -39,5 +39,5 @@ mv $FIXTURES/* . && npm install
 ### Program to test
 
 ```bash
-NODE_ENV=testing cg-jest run -- project.test.js --runInBand --forceExit
+NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
 ```
