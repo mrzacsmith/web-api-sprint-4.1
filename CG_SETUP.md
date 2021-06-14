@@ -33,7 +33,7 @@ NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
 
 ## Rubric
 
-### Auto Tests (8 points)
+### Auto Tests (9 points)
 
 >Automatic tests are run against your branch, to check how closely your work matches specification.
 There is a copy of the tests inside the `codegrade_mvp.test.js` file, at the root of the project.
