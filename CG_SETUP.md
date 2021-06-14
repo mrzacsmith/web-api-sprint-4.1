@@ -87,5 +87,5 @@ Do not rely on the automatic tests alone to check your progress!
 | Grade         | Points | Description |
 |---------------|:------:|-------------|
 | Not Yet       | 0      | The code is difficult to read and formatted poorly. |
-| Met           | 1      | The code is easy to read, properly formatted but does not use middleware functions so it could be made DRYer. |
+| Met           | 1      | The code is easy to read and properly formatted but more middleware functions could be used to make it DRYer. |
 | Flying Colors | 2      | Middleware functions are used to handle edge cases and errors, making the code very DRY. |
