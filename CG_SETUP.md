@@ -1,43 +1,91 @@
-# Codegrade
+# Codegrade Setup
 
-This is the solution repo for `https://github.com/LambdaSchool/web-sprint-challenge-build-a-web-api`
+This is the solution repo for [Building RESTful APIs with Express](https://github.com/LambdaSchool/web-sprint-challenge-build-a-web-api) Sprint Challenge Submission.
 
-## Project Setup
+Whenever setting up a Codegrade assignment or importing settings from another assignment:
 
-1. Run `npm i`
-2. Run `npm run migrate`
-3. Run `npm run seed`
-4. Run `npm run server`
-5. Run `npm test`
+1. Make sure that rubrics, fixtures and scripts match the ones in **this repo**.
+2. Re-upload to Codegrade any items that don't match exactly the ones in this repo.
+3. Run tests locally, and push an empty commit to Codegrade to verify that this repo passes all tests.
 
-## Codegrade Setup
-
-### Fixtures
-
-These are the files that Codegrade needs:
+## Fixtures
 
 1. `codegrade_mvp.test.js`
 2. `jest.config.js`
 
-If you make changes to the project or the tests, please go through this checklist:
-
-1. Make sure that all tests are passing in your local.
-2. Upload the updated fixtures to your template Codegrade assignment.
-
-### Global setup script to run
+## Global setup script to run
 
 ```bash
 cg-jest install
 ```
 
-### Per-student setup script to run
+## Per-student setup script to run
 
 ```bash
 mv $FIXTURES/* . && npm install
 ```
 
-### Program to test
+## Program to test
 
 ```bash
 NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
 ```
+
+## Rubric
+
+### Auto Tests (8 points)
+
+>Automatic tests are run against your branch, to check how closely your work matches specification.
+There is a copy of the tests inside the `codegrade_mvp.test.js` file, at the root of the project.
+You can execute those tests in your local machine by running `npm test`.
+It is crucial that test your API manually using HTTPie or Postman, and troubleshoot using log statements or the debugger.
+Do not rely on the automatic tests alone to check your progress!
+
+### Introduction to Node.js and Express
+
+>Use Node.js to build a Web API with npm scripts.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | Learner does not add "start" and "server" scripts to the `package.json` file.  |
+| Met           | 1      | Learner adds "start" (using Node) and "server" (using `nodemon`) scripts and installs the `nodemon` NPM package. |
+| Flying Colors | 2      | The `nodemon` package is installed as a development dependency. |
+
+### Server-Side Routing with Express
+
+>Build an API that can perform CRUD operations correctly.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | Learner's API does not exist or cannot perform CRUD operations. |
+| Met           | 1      | Learner's API includes all endpoints specified in the README and they are functional. |
+| Flying Colors | 2      | Learner's endpoints are built in separate router files for `projects` and `actions`. |
+
+### Express Middleware
+
+>Implement middleware functions.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | Learner does not add any middleware functions. |
+| Met           | 1      | Learner adds two middleware function and uses them correctly. |
+| Flying Colors | 2      | Learner adds and uses correctly more than two middleware functions. |
+
+### Web Deployment and Best Practices
+
+>Make the application deployable to Heroku.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | The API is deployable to Heroku (brings PORT from process.env and includes a "start" script). |
+| Met           | 1      | The API is not deployable to Heroku in its current form. |
+
+### Code Quality
+
+>Write code that is straightforward and easy to follow.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | The code is difficult to read and formatted poorly. |
+| Met           | 1      | The code is easy to read, properly formatted but does not use middleware functions so it could be made DRYer. |
+| Flying Colors | 2      | Middleware functions are used to handle edge cases and errors, making the code very DRY. |

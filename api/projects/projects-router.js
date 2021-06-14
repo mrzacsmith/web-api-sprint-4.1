@@ -1,49 +1,36 @@
 const router = require('express').Router();
 const Projects = require('./projects-model');
+const md = require('./projects-middleware')
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   Projects.get()
     .then(projects => {
       res.status(200).json(projects);
     })
     .catch(error => {
-      res.status(500).json({
+      next({
         message: 'We ran into an error retrieving the projects',
       });
     });
 });
 
-router.get('/:id', (req, res) => {
-  Projects.get(req.params.id)
-    .then(project => {
-      if (project) {
-        res.status(200).json(project);
-      } else {
-        res.status(404).json({
-          message: 'We could not find the project',
-        });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: 'We ran into an error retrieving the project',
-      });
-    });
+router.get('/:id', md.checkProjectId, (req, res, next) => {
+  res.json(req.project)
 });
 
-router.get('/:id/actions', (req, res) => {
+router.get('/:id/actions', md.checkProjectId, (req, res, next) => {
   Projects.getProjectActions(req.params.id)
     .then(actions => {
       res.status(200).json(actions);
     })
     .catch(error => {
-      res.status(500).json({
+      next({
         message: 'We ran into an error retrieving the project actions',
       });
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   const project = req.body;
 
   if (project.name && project.description) {
@@ -52,57 +39,46 @@ router.post('/', (req, res) => {
         res.status(201).json(inserted);
       })
       .catch(error => {
-        res.status(500).json({
+        next({
           message: 'We ran into an error creating the project',
         });
       });
   } else {
-    res.status(400).json({
+    next({
+      status: 400,
       message: 'Please provide name and description for the project',
     });
   }
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', md.checkProjectId, (req, res, next) => {
   const changes = req.body;
 
-  if (changes.name || changes.description || changes.completed) {
+  if (changes.name && changes.description && changes.completed !== undefined) {
     Projects.update(req.params.id, changes)
       .then(updated => {
-        if (updated) {
-          res.status(200).json(updated);
-        } else {
-          res.status(404).json({
-            message: 'That project does not exist',
-          });
-        }
+        res.status(200).json(updated);
       })
       .catch(error => {
-        res.status(500).json({
+        next({
           message: 'We ran into an error updating the project',
         });
       });
   } else {
-    res.status(400).json({
-      message: 'Please provide name, description or completed status',
+    next({
+      status: 400,
+      message: 'Please provide name, description and completed status',
     });
   }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', md.checkProjectId, (req, res, next) => {
   Projects.remove(req.params.id)
     .then(count => {
-      if (count > 0) {
-        res.status(204).end();
-      } else {
-        res.status(404).json({
-          message:
-            'That project does not exist, perhaps it was deleted already',
-        });
-      }
+      res.status(204).end();
     })
     .catch(error => {
-      res.status(500).json({
+      next({
         message: 'We ran into an error removing the project',
       });
     });

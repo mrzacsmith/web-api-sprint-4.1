@@ -1,29 +1,21 @@
 const router = require('express').Router();
 const Action = require('./actions-model');
+const md = require('./actions-middleware');
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const actions = await Action.get();
     res.status(200).json(actions);
   } catch (error) {
-    res.status(500).json({ message: 'Error getting the list of actions' });
+    next({ message: 'Error getting the list of actions' });
   }
 });
 
-router.get('/:id', async (req, res) => {
-  try {
-    const action = await Action.get(req.params.id);
-    if (action) {
-      res.status(200).json(action);
-    } else {
-      res.status(404).json({ message: 'We could not find the action' });
-    }
-  } catch (error) {
-    res.status(500).json({ message: 'Error getting the action' });
-  }
+router.get('/:id', md.checkActionId, async (req, res) => {
+  res.json(req.action)
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const action = req.body;
 
   if (action.description && action.project_id && action.notes) {
@@ -31,60 +23,39 @@ router.post('/', async (req, res) => {
       const inserted = await Action.insert(action);
       res.status(201).json(inserted);
     } catch (error) {
-      res.status(500).json({ message: 'Error creating the action' });
+      next({ message: 'Error creating the action' });
     }
   } else {
-    res.status(400).json({
-      message: 'Please provide description, notes and the id of the project',
-    });
+    next({ status: 400, message: 'Please provide description, notes and the id of the project' });
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', md.checkActionId, async (req, res, next) => {
   const changes = req.body;
 
   if (
-    changes.description ||
-    changes.notes ||
-    changes.completed ||
-    changes.project_id
+    changes.description &&
+    changes.notes &&
+    changes.project_id &&
+    changes.completed !== undefined
   ) {
     try {
       const updated = await Action.update(req.params.id, changes);
-      if (updated) {
-        res.status(200).json(updated);
-      } else {
-        res.status(404).json({
-          message: 'That action does not exist',
-        });
-      }
+      res.status(200).json(updated);
     } catch (error) {
-      res.status(500).json({
-        message: 'We ran into an error updating the project',
-      });
+      next({ message: 'We ran into an error updating the project' });
     }
   } else {
-    res.status(400).json({
-      message:
-        'Please provide at least one of name, description, notes or completed status',
-    });
+    next({ status: 400, message: 'Please provide all required fields' });
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', md.checkActionId, async (req, res, next) => {
   try {
-    const count = await Action.remove(req.params.id);
-    if (count > 0) {
-      res.status(204).end();
-    } else {
-      res.status(404).json({
-        message: 'That project does not exist, perhaps it was deleted already',
-      });
-    }
+    await Action.remove(req.params.id);
+    res.status(204).end();
   } catch (error) {
-    res.status(500).json({
-      message: 'We ran into an error removing the project',
-    });
+    next({ message: 'We ran into an error removing the project' });
   }
 });
 
