@@ -15,38 +15,21 @@ router.get('/:id', md.checkActionId, async (req, res) => {
   res.json(req.action)
 });
 
-router.post('/', async (req, res, next) => {
-  const action = req.body;
-
-  if (action.description && action.project_id && action.notes) {
-    try {
-      const inserted = await Action.insert(action);
-      res.status(201).json(inserted);
-    } catch (error) {
-      next({ message: 'Error creating the action' });
-    }
-  } else {
-    next({ status: 400, message: 'Please provide description, notes and the id of the project' });
+router.post('/', md.checkActionCreatePayload, async (req, res, next) => {
+  try {
+    const inserted = await Action.insert(req.body);
+    res.status(201).json(inserted);
+  } catch (error) {
+    next({ message: 'Error creating the action' });
   }
 });
 
-router.put('/:id', md.checkActionId, async (req, res, next) => {
-  const changes = req.body;
-
-  if (
-    changes.description &&
-    changes.notes &&
-    changes.project_id &&
-    changes.completed !== undefined
-  ) {
-    try {
-      const updated = await Action.update(req.params.id, changes);
-      res.status(200).json(updated);
-    } catch (error) {
-      next({ message: 'We ran into an error updating the project' });
-    }
-  } else {
-    next({ status: 400, message: 'Please provide all required fields' });
+router.put('/:id', md.checkActionUpdatePayload, md.checkActionId, async (req, res, next) => {
+  try {
+    const updated = await Action.update(req.params.id, req.body);
+    res.status(200).json(updated);
+  } catch (error) {
+    next({ message: 'We ran into an error updating the project' });
   }
 });
 

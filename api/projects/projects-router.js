@@ -30,46 +30,28 @@ router.get('/:id/actions', md.checkProjectId, (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
-  const project = req.body;
-
-  if (project.name && project.description) {
-    Projects.insert(project)
-      .then(inserted => {
-        res.status(201).json(inserted);
-      })
-      .catch(error => {
-        next({
-          message: 'We ran into an error creating the project',
-        });
+router.post('/', md.checkProjectCreatePayload, (req, res, next) => {
+  Projects.insert(req.body)
+    .then(inserted => {
+      res.status(201).json(inserted);
+    })
+    .catch(error => {
+      next({
+        message: 'We ran into an error creating the project',
       });
-  } else {
-    next({
-      status: 400,
-      message: 'Please provide name and description for the project',
     });
-  }
 });
 
-router.put('/:id', md.checkProjectId, (req, res, next) => {
-  const changes = req.body;
-
-  if (changes.name && changes.description && changes.completed !== undefined) {
-    Projects.update(req.params.id, changes)
-      .then(updated => {
-        res.status(200).json(updated);
-      })
-      .catch(error => {
-        next({
-          message: 'We ran into an error updating the project',
-        });
+router.put('/:id', md.checkProjectUpdatePayload, md.checkProjectId, (req, res, next) => {
+  Projects.update(req.params.id, req.body)
+    .then(updated => {
+      res.status(200).json(updated);
+    })
+    .catch(error => {
+      next({
+        message: 'We ran into an error updating the project',
       });
-  } else {
-    next({
-      status: 400,
-      message: 'Please provide name, description and completed status',
     });
-  }
 });
 
 router.delete('/:id', md.checkProjectId, (req, res, next) => {
