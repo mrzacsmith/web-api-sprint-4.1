@@ -80,10 +80,10 @@ Do not rely on the automatic tests alone to check your progress!
 
 >Make the application deployable to Heroku.
 
-| Grade         | Points | Description |
-|---------------|:------:|-------------|
-| Not Yet       | 0      | The API is deployable to Heroku (brings PORT from process.env and includes a "start" script). |
-| Met           | 1      | The API is not deployable to Heroku in its current form. |
+| Grade   | Points | Description |
+|---------|:------:|-------------|
+| Not Yet | 0      | The API is not deployable to Heroku in its current form. |
+| Met     | 1      | The API is deployable to Heroku (brings PORT from process.env and includes a "start" script). |
 
 ### Code Quality
 
