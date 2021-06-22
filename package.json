@@ -1,6 +1,6 @@
 {
   "name": "web-sprint-challenge-build-a-web-api-solution",
-  "version": "'0.0.1",
+  "version": "0.0.1",
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
