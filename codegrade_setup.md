@@ -8,30 +8,35 @@ Whenever setting up a Codegrade assignment or importing settings from another as
 2. Re-upload to Codegrade any items that don't match exactly the ones in this repo.
 3. Run tests locally, and push an empty commit to Codegrade to verify that this repo passes all tests.
 
-## Fixtures
+## 1- Fixtures
 
-1. `codegrade_mvp.test.js`
-2. `jest.config.js`
+### Student-Facing
 
-## Global setup script to run
+- [codegrade_mvp.test.js](./codegrade_mvp.test.js)
+
+### Non-Student-Facing
+
+- [codegrade_mvp.test1.js](./codegrade_mvp1.test.js)
+
+## 2- Global Setup Script
 
 ```bash
 cg-jest install
 ```
 
-## Per-student setup script to run
+## 3- Per-Student Setup Script
 
 ```bash
 mv $FIXTURES/* . && npm install
 ```
 
-## Program to test
+## 4- Auto Tests
 
 ```bash
-NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
+NODE_ENV=testing cg-jest run -- --runInBand --forceExit
 ```
 
-## Rubric
+## 5- Rubric
 
 ### Auto Tests (9 points)
 
