@@ -52,7 +52,7 @@ Do not rely on the automatic tests alone to check your progress!
 
 | Grade         | Points | Description |
 |---------------|:------:|-------------|
-| Not Yet       | 0      | Learner does not add "start" and "server" scripts to the `package.json` file.  |
+| Not Yet       | 0      | Learner does not add "start" and "server" scripts to the `package.json` file. |
 | Met           | 1      | Learner adds "start" (using Node) and "server" (using `nodemon`) scripts and installs the `nodemon` NPM package. |
 | Flying Colors | 2      | The `nodemon` package is installed as a development dependency. |
 
