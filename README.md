@@ -24,7 +24,7 @@ In meeting the minimum viable product (MVP) specifications listed below, your pr
 
 ### Task 2: CodeGrade Setup
 
-- [ ] Accept the repository sent to your email inbox associated with your Github account.
+- [ ] Accept the repository sent to your email inbox associated with your Github account. (Full-Time program only)
 - [ ] Make a commit and push it to Github.
 - [ ] Check to see that Codegrade has accepted your git submission.
 
