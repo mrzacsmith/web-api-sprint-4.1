@@ -135,9 +135,11 @@ We have provided test data for all the resources.
 - In your solution, it is essential that you follow best practices and produce clean and professional results.
 - Schedule time to review, refine, and assess your work and perform basic professional polishing including spell-checking and grammar-checking on your work.
 
+
 ## Submission format
 
-- [ ] Submit via Codegrade by pushing commits to your `<firstName-lastName>` branch.
+For a step-by-step on setting up Codegrade see [this video.](https://www.youtube.com/watch?v=fC2BO7dI6IQ) See the end of this README for more information!
+- [ ] Submit via Codegrade by pushing commits to your `main` branch on Github.
 - [ ] Check Codegrade before the deadline to compare its results against your local tests.
 - [ ] Check Codegrade on the days following the Sprint Challenge for reviewer feedback.
 - [ ] New commits will be evaluated by Codegrade if pushed _before_ the sprint challenge deadline.
