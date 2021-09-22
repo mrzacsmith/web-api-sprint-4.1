@@ -14,10 +14,6 @@ Whenever setting up a Codegrade assignment or importing settings from another as
 
 - [codegrade_mvp.test.js](./codegrade_mvp.test.js)
 
-### Non-Student-Facing
-
-- [codegrade_mvp.test1.js](./codegrade_mvp1.test.js)
-
 ## 2- Global Setup Script
 
 ```bash
@@ -32,16 +28,10 @@ mv $FIXTURES/* . && npm install
 
 ## 4- Auto Tests
 
-### Learner-Facing - Weight 99
+### Learner-Facing - Weight 100
 
 ```bash
 NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
-```
-
-### Non-Learner-Facing - Weight 1
-
-```bash
-NODE_ENV=testing cg-jest run -- codegrade_mvp1.test.js --runInBand --forceExit
 ```
 
 ## 5- Rubric
