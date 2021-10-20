@@ -90,5 +90,4 @@ typings/
 .dynamodb/
 
 # databases
-test.db3
-lambda.db3
+*.db3
