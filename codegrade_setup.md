@@ -1,6 +1,6 @@
 # Codegrade Setup
 
-This is the solution repo for [Building RESTful APIs with Express](https://github.com/LambdaSchool/web-sprint-challenge-build-a-web-api) Sprint Challenge Submission.
+This is the solution repo for [Building RESTful APIs with Express](https://github.com/BloomInstituteOfTechnology/web-sprint-challenge-build-a-web-api) Sprint Challenge Submission.
 
 Whenever setting up a Codegrade assignment or importing settings from another assignment:
 
